@@ -21,7 +21,6 @@ const Navbar = () => {
           <IconButton
             onClick={toggleColorMode}
             aria-label={useColorModeValue('Dark mode', 'Light Mode')}
-            bg={useColorModeValue('gray.200', 'gray.800')}
             icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
           />
         </Flex>

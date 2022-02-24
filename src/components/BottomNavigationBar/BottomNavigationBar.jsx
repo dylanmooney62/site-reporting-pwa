@@ -7,11 +7,11 @@ const BottomNavigationBar = () => (
   <Box marginTop="auto" bg={useColorModeValue('gray.100', 'gray.900')}>
     <Container maxW="container.xl">
       <Flex h={16} alignItems="center" justifyContent="space-evenly">
-        <BottomNavigationBarButton icon={<FiMapPin />} aria-label="Map" />
-        <BottomNavigationBarButton icon={<FiCamera />} aria-label="Camera" />
+        <BottomNavigationBarButton icon={<FiMapPin />} label="Map" />
+        <BottomNavigationBarButton icon={<FiCamera />} label="Camera" />
         <BottomNavigationBarButton
           icon={<FiMessageSquare />}
-          aria-label="Messages"
+          label="Messages"
         />
       </Flex>
     </Container>
