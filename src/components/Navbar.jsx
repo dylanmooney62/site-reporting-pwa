@@ -1,13 +1,12 @@
 import React from 'react';
 import {
   Box,
-  Button,
   Container,
   Flex,
+  IconButton,
   Text,
   useColorMode,
   useColorModeValue,
-  VisuallyHidden,
 } from '@chakra-ui/react';
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 
@@ -19,15 +18,12 @@ const Navbar = () => {
       <Container maxW="container.xl">
         <Flex h={16} alignItems="center" justifyContent="space-between">
           <Text fontWeight="bold">React App</Text>
-          <Button
+          <IconButton
             onClick={toggleColorMode}
+            aria-label={useColorModeValue('Dark mode', 'Light Mode')}
             bg={useColorModeValue('gray.200', 'gray.800')}
-          >
-            <VisuallyHidden>
-              {useColorModeValue('Dark mode', 'Light Mode')}
-            </VisuallyHidden>
-            {useColorModeValue(<MoonIcon />, <SunIcon />)}
-          </Button>
+            icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
+          />
         </Flex>
       </Container>
     </Box>
