@@ -7,6 +7,7 @@ import {
   Text,
   useColorMode,
   useColorModeValue,
+  VisuallyHidden,
 } from '@chakra-ui/react';
 
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
@@ -23,6 +24,9 @@ const Navbar = () => {
             onClick={toggleColorMode}
             bg={useColorModeValue('gray.200', 'gray.800')}
           >
+            <VisuallyHidden>
+              {useColorModeValue('Dark mode', 'Light Mode')}
+            </VisuallyHidden>
             {useColorModeValue(<MoonIcon />, <SunIcon />)}
           </Button>
         </Flex>

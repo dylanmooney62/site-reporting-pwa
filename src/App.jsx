@@ -4,7 +4,6 @@ import { ChakraProvider, Container, Flex } from '@chakra-ui/react';
 import theme from './theme';
 import Navbar from './components/common/Navbar';
 import BottomNavigationBar from './components/common/BottomNavigationBar';
-// import Navbar from './components/common/Navbar';
 
 const App = () => (
   <ChakraProvider theme={theme}>
