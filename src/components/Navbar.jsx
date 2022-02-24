@@ -9,7 +9,6 @@ import {
   useColorModeValue,
   VisuallyHidden,
 } from '@chakra-ui/react';
-
 import { SunIcon, MoonIcon } from '@chakra-ui/icons';
 
 const Navbar = () => {

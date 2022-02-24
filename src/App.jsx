@@ -2,8 +2,8 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { ChakraProvider, Container, Flex } from '@chakra-ui/react';
 import theme from './theme';
-import Navbar from './components/common/Navbar';
-import BottomNavigationBar from './components/common/BottomNavigationBar';
+import Navbar from './components/Navbar';
+import BottomNavigationBar from './components/BottomNavigationBar';
 
 const App = () => (
   <ChakraProvider theme={theme}>
