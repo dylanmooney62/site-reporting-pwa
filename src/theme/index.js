@@ -9,6 +9,13 @@ const config = {
 
 // 3. extend the theme
 const theme = extendTheme({
+  styles: {
+    global: {
+      'html, body, #root': {
+        height: '100%',
+      },
+    },
+  },
   config,
   colors: {
     gray: {

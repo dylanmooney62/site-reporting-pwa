@@ -24,7 +24,7 @@ const BottomNavigationBarButton = ({ icon, label, to, activeColor }) => {
 
 BottomNavigationBarButton.propTypes = {
   label: PropTypes.string.isRequired,
-  icon: PropTypes.element.isRequired,
+  icon: PropTypes.func.isRequired,
   to: PropTypes.string.isRequired,
   activeColor: PropTypes.string.isRequired,
 };

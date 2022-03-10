@@ -6,14 +6,14 @@ import routes from './routes';
 const BottomNavigationBar = () => (
   <Box marginTop="auto" bg="gray.900">
     <Container maxW="container.xl">
-      <Flex h={16} alignItems="center" justifyContent="space-evenly">
-        {routes.map(({ to, label, icon, activeColor }) => (
-          <BottomNavigationBarButton
-            to={to}
-            label={label}
-            icon={icon}
-            activeColor={activeColor}
-          />
+      <Flex
+        h={16}
+        alignItems="center"
+        justifyContent={['space-between', 'space-evenly']}
+        px={[3, 0]}
+      >
+        {routes.map((route) => (
+          <BottomNavigationBarButton {...route} key={route.label} />
         ))}
       </Flex>
     </Container>
