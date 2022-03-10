@@ -1,10 +1,10 @@
 import React from 'react';
 import { Center, Text } from '@chakra-ui/react';
 
-const Home = () => (
+const Chat = () => (
   <Center>
-    <Text>This is the Home page</Text>
+    <Text>This is the Chat page</Text>
   </Center>
 );
 
-export default Home;
+export default Chat;

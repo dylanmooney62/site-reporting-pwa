@@ -1,24 +1,32 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
-import { IconButton, useColorModeValue } from '@chakra-ui/react';
+import { DarkMode, IconButton } from '@chakra-ui/react';
+import { Link, useMatch, useResolvedPath } from 'react-router-dom';
 
-const BottomNavigationBarButton = ({ icon, label }) => {
-  const bg = useColorModeValue('gray.200', 'whiteAlpha.200');
+const BottomNavigationBarButton = ({ icon, label, to, activeColor }) => {
+  const resolved = useResolvedPath(to);
+  const isMatch = useMatch({ path: resolved.pathname, end: true });
 
   return (
-    <IconButton
-      variant="ghost"
-      size="lg"
-      _hover={{ bg }}
-      aria-label={label}
-      icon={icon}
-    />
+    <DarkMode>
+      <IconButton
+        variant="ghost"
+        size="lg"
+        aria-label={label}
+        icon={createElement(icon)}
+        to={to}
+        as={Link}
+        color={isMatch && activeColor}
+      />
+    </DarkMode>
   );
 };
 
 BottomNavigationBarButton.propTypes = {
   label: PropTypes.string.isRequired,
   icon: PropTypes.element.isRequired,
+  to: PropTypes.string.isRequired,
+  activeColor: PropTypes.string.isRequired,
 };
 
 export default BottomNavigationBarButton;

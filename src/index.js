@@ -7,7 +7,7 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import theme from './theme';
-import Home from './pages/Home';
+import { Home, Map, Camera, Chat } from './pages';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,6 +16,9 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
+          <Route path="map" element={<Map />} />
+          <Route path="camera" element={<Camera />} />
+          <Route path="chat" element={<Chat />} />
         </Route>
       </Routes>
     </BrowserRouter>
