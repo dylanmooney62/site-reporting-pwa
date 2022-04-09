@@ -10,7 +10,7 @@ const SplashScreen = () => (
     justifyContent="center"
   >
     <VStack alignItems="center" justifyContent="center" spacing={4} mb={12}>
-      <Image src={Logo} boxSize={200} />
+      <Image src={Logo} boxSize={36} />
       <Heading as="h1" size="2xl" letterSpacing="wide" fontFamily="title">
         Animal
         <Text as="span" color="blue.300">

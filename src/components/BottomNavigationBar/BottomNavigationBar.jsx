@@ -2,9 +2,10 @@ import React from 'react';
 import { Box, Container, Flex } from '@chakra-ui/react';
 import BottomNavigationBarButton from './BottomNavigationBarButton';
 import routes from './routes';
+import { useSafeArea } from '../../hooks/useSafeArea';
 
 const BottomNavigationBar = () => (
-  <Box marginTop="auto" bg="gray.900">
+  <Box marginTop="auto" bg="gray.900" pb={useSafeArea().bottom}>
     <Container maxW="container.xl">
       <Flex
         h={16}
@@ -19,5 +20,4 @@ const BottomNavigationBar = () => (
     </Container>
   </Box>
 );
-
 export default BottomNavigationBar;

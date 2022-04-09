@@ -11,10 +11,16 @@ const config = {
 const theme = extendTheme({
   styles: {
     global: {
+      ':root': {
+        '--sat': 'env(safe-area-inset-top)',
+        '--sar': 'env(safe-area-inset-right)',
+        '--sab': 'env(safe-area-inset-bottom)',
+        '--sal': 'env(safe-area-inset-left)',
+      },
       html: {
         minHeight: 'calc(100% + env(safe-area-inset-top))',
         padding:
-          'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);',
+          'env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);',
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#27272B',

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
+import { RemoveScroll } from 'react-remove-scroll';
 import {
   ChakraProvider,
   Container,
@@ -41,20 +43,22 @@ const App = () => {
     content = <SplashScreen />;
   } else {
     content = (
-      <Flex flexDirection="column" flex={1}>
-        <Navbar onOpenSideDrawer={onOpen} />
-        <SideDrawer isOpen={isOpen} onClose={onClose} />
-        <Container
-          maxW="container.xl"
-          as="main"
-          display="flex"
-          flexDirection="column"
-          flex={1}
-        >
-          <Outlet />
-        </Container>
-        <BottomNavigationBar />
-      </Flex>
+      <RemoveScroll forwardProps>
+        <Flex flexDirection="column" flex={1}>
+          <Navbar onOpenSideDrawer={onOpen} />
+          <SideDrawer isOpen={isOpen} onClose={onClose} />
+          <Container
+            maxW="container.xl"
+            as="main"
+            display="flex"
+            flexDirection="column"
+            flex={1}
+          >
+            <Outlet />
+          </Container>
+          <BottomNavigationBar />
+        </Flex>
+      </RemoveScroll>
     );
   }
 
