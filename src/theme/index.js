@@ -11,12 +11,30 @@ const config = {
 const theme = extendTheme({
   styles: {
     global: {
-      'html, body, #root': {
+      html: {
+        minHeight: 'calc(100% + env(safe-area-inset-top))',
+        padding:
+          'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);',
+        display: 'flex',
+        flexDirection: 'column',
+        backgroundColor: '#27272B',
+        overflow: 'hidden',
+      },
+      'body, #root': {
         height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        overflow: 'hidden',
       },
     },
   },
   config,
+  fonts: {
+    title: 'Amaranth, sans-serif',
+    heading: 'Open Sans, sans-serif',
+    body: 'Open Sans, sans-serif',
+  },
   colors: {
     gray: {
       50: '#fafafa',

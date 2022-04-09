@@ -1,27 +1,32 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import { ColorModeScript } from '@chakra-ui/react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+
+import App from './App';
+import store from './app/store';
 import theme from './theme';
 import { Home, Map, Camera, Chat } from './pages';
 
 ReactDOM.render(
   <React.StrictMode>
-    <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Home />} />
-          <Route path="map" element={<Map />} />
-          <Route path="camera" element={<Camera />} />
-          <Route path="chat" element={<Chat />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Home />} />
+            <Route path="map" element={<Map />} />
+            <Route path="camera" element={<Camera />} />
+            <Route path="chat" element={<Chat />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

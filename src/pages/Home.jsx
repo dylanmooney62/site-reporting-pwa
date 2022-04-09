@@ -3,7 +3,7 @@ import { Center, Text } from '@chakra-ui/react';
 
 const Home = () => (
   <Center>
-    <Text>This is the Home page</Text>
+    <Text fontSize="lg">This is the Home page</Text>
   </Center>
 );
 
