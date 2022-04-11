@@ -17,6 +17,7 @@ const BottomNavigationBarButton = ({ icon, label, to, activeColor }) => {
         to={to}
         as={Link}
         color={isMatch && activeColor}
+        replace
       />
     </DarkMode>
   );

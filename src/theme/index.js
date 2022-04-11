@@ -19,8 +19,7 @@ const theme = extendTheme({
       },
       html: {
         minHeight: 'calc(100% + env(safe-area-inset-top))',
-        padding:
-          'env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left);',
+        padding: 'var(--sat) var(--sar) 0 var(--sal)',
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#27272B',
@@ -53,6 +52,20 @@ const theme = extendTheme({
       700: '#3f3f46',
       800: '#27272a',
       900: '#18181b',
+    },
+  },
+  components: {
+    Spinner: {
+      baseStyle: {
+        borderWidth: '4px',
+        color: 'blue.400',
+        animationDuration: '0.66s',
+        borderBottomColor: 'blackAlpha.300',
+        borderLeftColor: 'blackAlpha.300',
+      },
+      defaultProps: {
+        size: 'xl',
+      },
     },
   },
 });

@@ -18,13 +18,7 @@ const SplashScreen = () => (
         </Text>
       </Heading>
     </VStack>
-    <Spinner
-      size="xl"
-      thickness="4px"
-      speed="0.66s"
-      color="blue.400"
-      emptyColor="blackAlpha.300"
-    />
+    <Spinner />
   </Flex>
 );
 

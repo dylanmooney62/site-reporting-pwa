@@ -1,35 +1,28 @@
 import React, { useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
+import { Outlet } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
-import {
-  ChakraProvider,
-  Container,
-  Flex,
-  useDisclosure,
-} from '@chakra-ui/react';
-import theme from './theme';
-import Navbar from './components/Navbar';
-import BottomNavigationBar from './components/BottomNavigationBar';
-import SideDrawer from './components/SideDrawer/SideDrawer';
+import { ChakraProvider, Flex, useDisclosure } from '@chakra-ui/react';
+
 import {
   getLocation,
   selectLocationStatus,
 } from './features/location/locationSlice';
 
+import theme from './theme';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/open-sans/400.css';
 import '@fontsource/amaranth/400.css';
 
 import SplashScreen from './app/SplashScreen';
+import Navbar from './components/Navbar';
+import BottomNavigationBar from './components/BottomNavigationBar';
+import SideDrawer from './components/SideDrawer/SideDrawer';
 
 const App = () => {
-  const { isOpen, onClose, onOpen } = useDisclosure();
-
   const dispatch = useDispatch();
-
   const locationStatus = useSelector(selectLocationStatus);
+  const { isOpen, onClose, onOpen } = useDisclosure();
 
   useEffect(() => {
     if (locationStatus === 'idle') {
@@ -39,7 +32,8 @@ const App = () => {
 
   let content;
 
-  if (locationStatus === 'loading') {
+  // Display the splash screen if the location is still loading
+  if (locationStatus === 'loading' || locationStatus === 'idle') {
     content = <SplashScreen />;
   } else {
     content = (
@@ -47,15 +41,7 @@ const App = () => {
         <Flex flexDirection="column" flex={1}>
           <Navbar onOpenSideDrawer={onOpen} />
           <SideDrawer isOpen={isOpen} onClose={onClose} />
-          <Container
-            maxW="container.xl"
-            as="main"
-            display="flex"
-            flexDirection="column"
-            flex={1}
-          >
-            <Outlet />
-          </Container>
+          <Outlet />
           <BottomNavigationBar />
         </Flex>
       </RemoveScroll>

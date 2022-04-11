@@ -4,7 +4,7 @@ import { Box, Flex, IconButton } from '@chakra-ui/react';
 import { HiOutlineMenuAlt2 } from 'react-icons/hi';
 
 const Navbar = ({ onOpenSideDrawer }) => (
-  <Box position="fixed" mt={4} ml={4}>
+  <Box position="fixed" mt={4} ml={4} zIndex={100}>
     <Flex alignItems="center" justifyContent="space-between">
       <IconButton
         variant="ghost"

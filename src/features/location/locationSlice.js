@@ -14,7 +14,6 @@ export const getLocation = createAsyncThunk(
     const position = await getCurrentPositionAsync({
       enableHighAccuracy: true,
       maximumAge: 1000,
-      timeout: 1000,
     });
 
     return {
