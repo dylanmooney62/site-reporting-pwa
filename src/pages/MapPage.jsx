@@ -1,26 +1,35 @@
 import React from 'react';
 import Mapbox from 'react-map-gl';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectLocation } from '../features/location/locationSlice';
 import useWindowDimensions from '../hooks/useWindowDimensions';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import {
+  MapViewStateUpdated,
+  selectMapViewState,
+} from '../features/map/mapSlice';
 
-const Map = () => {
+const MapPage = () => {
   const dimensions = useWindowDimensions();
+  const dispatch = useDispatch();
+  const viewState = useSelector(selectMapViewState);
   const location = useSelector(selectLocation);
-
-  // Retrieve the current location from the Redux store, use london as default if not found
-  const latitude = location.lat ?? -122.43;
-  const longitude = location.lng ?? 37.77;
 
   // Height is calculated from height of the screen and the height of the bottom navigation bar
   const height = dimensions.height - 64;
   const { width } = dimensions;
 
+  const initialViewState = viewState ?? {
+    latitude: location.lat,
+    longitude: location.lng,
+    zoom: 6,
+  };
+
   return (
     <Mapbox
       reuseMaps
-      initialViewState={{ longitude, latitude, zoom: 6 }}
+      initialViewState={initialViewState}
+      onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
       style={{
         width,
         height: `calc(${height}px - var(--sab))`,
@@ -34,4 +43,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default MapPage;

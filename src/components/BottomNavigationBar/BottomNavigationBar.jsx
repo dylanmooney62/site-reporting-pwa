@@ -4,7 +4,13 @@ import BottomNavigationBarButton from './BottomNavigationBarButton';
 import routes from './routes';
 
 const BottomNavigationBar = () => (
-  <Box marginTop="auto" bg="gray.900" pb="var(--sab)">
+  <Box
+    marginTop="auto"
+    bg="gray.900"
+    pb="var(--sab)"
+    position="relative"
+    zIndex="200"
+  >
     <Container maxW="container.xl">
       <Flex
         h={16}

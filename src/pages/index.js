@@ -1,6 +1,6 @@
-import Home from './Home';
-import Map from './Map';
-import Camera from './Camera';
-import Chat from './Chat';
+import HomePage from './HomePage';
+import MapPage from './MapPage';
+import CameraPage from './CameraPage';
+import ChatPage from './ChatPage';
 
-export { Home, Map, Camera, Chat };
+export { HomePage, MapPage, CameraPage, ChatPage };

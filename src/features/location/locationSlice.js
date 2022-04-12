@@ -36,6 +36,8 @@ export const locationSlice = createSlice({
       state.status = 'succeeded';
     });
     builder.addCase(getLocation.rejected, (state, action) => {
+      // Set default coords to center of the UK
+      state.coords = { lat: 54.971, lng: -2.45682 };
       state.error = action.error.message;
       state.status = 'failed';
     });

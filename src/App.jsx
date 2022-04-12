@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
 import { ChakraProvider, Flex, useDisclosure } from '@chakra-ui/react';
 
@@ -39,8 +40,8 @@ const App = () => {
     content = (
       <RemoveScroll forwardProps>
         <Flex flexDirection="column" flex={1}>
-          <Navbar onOpenSideDrawer={onOpen} />
-          <SideDrawer isOpen={isOpen} onClose={onClose} />
+          {/* <Navbar onOpenSideDrawer={onOpen} />
+          <SideDrawer isOpen={isOpen} onClose={onClose} /> */}
           <Outlet />
           <BottomNavigationBar />
         </Flex>
