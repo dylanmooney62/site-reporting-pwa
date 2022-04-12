@@ -11,12 +11,12 @@ const BottomNavigationBar = () => (
     position="relative"
     zIndex="200"
   >
-    <Container maxW="container.xl">
+    <Container maxW={['container.sm']}>
       <Flex
         h={16}
         alignItems="center"
-        justifyContent={['space-between', 'space-evenly']}
-        px={[3, 0]}
+        justifyContent="space-between"
+        px={[8, 0]}
       >
         {routes.map((route) => (
           <BottomNavigationBarButton {...route} key={route.label} />

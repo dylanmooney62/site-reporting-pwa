@@ -10,7 +10,7 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import store from './app/store';
 import theme from './theme';
-import { HomePage, MapPage, CameraPage, ChatPage } from './pages';
+import { HomePage, MapPage, CameraPage } from './pages';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,9 +20,8 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<HomePage />} />
-            <Route path="map" element={<MapPage />} />
             <Route path="camera" element={<CameraPage />} />
-            <Route path="chat" element={<ChatPage />} />
+            <Route path="map" element={<MapPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
