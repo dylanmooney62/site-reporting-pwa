@@ -3,11 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box, Button, Container, Flex, IconButton } from '@chakra-ui/react';
 import { FiSend, FiSave } from 'react-icons/fi';
+import { useNavigate } from 'react-router-dom';
 
 const ImageControls = ({ imageSrc }) => {
   const handleSaveImage = () => {};
 
-  const handlePostImage = () => {};
+  const navigate = useNavigate();
 
   return (
     <Box bg="gray.900" pb="var(--sab)">
@@ -29,7 +30,7 @@ const ImageControls = ({ imageSrc }) => {
         <Button
           px={6}
           bgColor="blue.500"
-          onClick={handlePostImage}
+          onClick={() => navigate('/post/new', { state: { imageSrc } })}
           borderRadius="full"
           rightIcon={<FiSend color="white" />}
         >

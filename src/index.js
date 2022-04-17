@@ -10,7 +10,9 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import store from './app/store';
 import theme from './theme';
-import { HomePage, MapPage, CameraPage } from './pages';
+// eslint-disable-next-line no-unused-vars
+import { HomePage, MapPage, CameraPage, PostPage } from './pages';
+import AddPost from './features/post/AddPost';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,6 +24,9 @@ ReactDOM.render(
             <Route index element={<HomePage />} />
             <Route path="camera" element={<CameraPage />} />
             <Route path="map" element={<MapPage />} />
+            <Route path="post">
+              <Route path="new" element={<AddPost />} />
+            </Route>
           </Route>
         </Routes>
       </BrowserRouter>

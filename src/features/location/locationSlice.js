@@ -3,6 +3,7 @@ import { getCurrentPositionAsync } from './utils';
 
 const initialState = {
   coords: null,
+  address: null,
   status: 'idle',
   error: null,
 };
@@ -16,9 +17,12 @@ export const getLocation = createAsyncThunk(
       maximumAge: 1000,
     });
 
+    const lat = position.coords.latitude;
+    const lng = position.coords.longitude;
+
     return {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
+      lat,
+      lng,
     };
   }
 );
@@ -32,7 +36,9 @@ export const locationSlice = createSlice({
       state.status = 'loading';
     });
     builder.addCase(getLocation.fulfilled, (state, action) => {
-      state.coords = action.payload;
+      const { lat, lng, address } = action.payload;
+      state.coords = { lat, lng };
+      state.address = address;
       state.status = 'succeeded';
     });
     builder.addCase(getLocation.rejected, (state, action) => {

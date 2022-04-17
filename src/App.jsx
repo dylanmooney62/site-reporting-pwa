@@ -14,16 +14,16 @@ import theme from './theme';
 import '@fontsource/open-sans/700.css';
 import '@fontsource/open-sans/400.css';
 import '@fontsource/amaranth/400.css';
-
 import SplashScreen from './app/SplashScreen';
 import Navbar from './components/Navbar';
 import BottomNavigationBar from './components/BottomNavigationBar';
-import SideDrawer from './components/SideDrawer/SideDrawer';
+import { useIsNestedRoute } from './hooks/useIsNestedRoute';
 
 const App = () => {
   const dispatch = useDispatch();
   const locationStatus = useSelector(selectLocationStatus);
-  const { isOpen, onClose, onOpen } = useDisclosure();
+
+  const isNestedRoute = useIsNestedRoute();
 
   useEffect(() => {
     if (locationStatus === 'idle') {
@@ -40,10 +40,9 @@ const App = () => {
     content = (
       <RemoveScroll forwardProps>
         <Flex flexDirection="column" flex={1}>
-          {/* <Navbar onOpenSideDrawer={onOpen} />
-          <SideDrawer isOpen={isOpen} onClose={onClose} /> */}
+          {isNestedRoute && <Navbar />}
           <Outlet />
-          <BottomNavigationBar />
+          {!isNestedRoute && <BottomNavigationBar />}
         </Flex>
       </RemoveScroll>
     );

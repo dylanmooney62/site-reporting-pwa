@@ -19,7 +19,6 @@ const theme = extendTheme({
       },
       html: {
         minHeight: 'calc(100% + env(safe-area-inset-top))',
-        padding: 'var(--sat) var(--sar) 0 var(--sal)',
         display: 'flex',
         flexDirection: 'column',
         backgroundColor: '#27272B',

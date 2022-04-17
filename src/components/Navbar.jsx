@@ -1,31 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Box, Flex, IconButton } from '@chakra-ui/react';
-import { HiOutlineMenuAlt2 } from 'react-icons/hi';
+import { HiArrowLeft } from 'react-icons/hi';
+import { useNavigate } from 'react-router-dom';
 
-const Navbar = ({ onOpenSideDrawer }) => (
-  <Box position="fixed" mt={4} ml={4} zIndex={100}>
-    <Flex alignItems="center" justifyContent="space-between">
-      <IconButton
-        variant="ghost"
-        icon={<HiOutlineMenuAlt2 size={24} />}
-        onClick={onOpenSideDrawer}
-        bgColor="gray.900"
-        size="lg"
-        borderRadius={100}
-        shadow="md"
-      />
-      {/* <IconButton
-            onClick={toggleColorMode}
-            aria-label={useColorModeValue('Dark mode', 'Light Mode')}
-            icon={useColorModeValue(<MoonIcon />, <SunIcon />)}
-          /> */}
-    </Flex>
-  </Box>
-);
+const Navbar = () => {
+  const navigate = useNavigate();
 
-Navbar.propTypes = {
-  onOpenSideDrawer: PropTypes.func.isRequired,
+  return (
+    <Box position="fixed" zIndex={100} mx={2} mt={10}>
+      <Flex alignItems="center" justifyContent="space-between">
+        <IconButton
+          icon={<HiArrowLeft size={24} />}
+          onClick={() => navigate(-1, { replace: true })}
+          size="lg"
+          variant="ghost"
+          borderRadius={100}
+        />
+      </Flex>
+    </Box>
+  );
 };
 
 export default Navbar;

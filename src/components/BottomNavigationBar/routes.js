@@ -1,6 +1,12 @@
-import { FiHome, FiMapPin, FiCamera } from 'react-icons/fi';
+import { FiHome, FiMap, FiCamera } from 'react-icons/fi';
 
 export default [
+  {
+    to: '/map',
+    label: 'Map',
+    icon: FiMap,
+    activeColor: 'green.400',
+  },
   {
     to: '/',
     label: 'Home',
@@ -12,11 +18,5 @@ export default [
     label: 'Camera',
     icon: FiCamera,
     activeColor: 'yellow.400',
-  },
-  {
-    to: '/map',
-    label: 'Map',
-    icon: FiMapPin,
-    activeColor: 'green.400',
   },
 ];

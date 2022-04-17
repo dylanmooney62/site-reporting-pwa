@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { Box, CloseButton, Image } from '@chakra-ui/react';
 
 const ImagePreview = ({ imageSrc, onClose }) => (
-  <Box height="100%" width="100%" px={2} pb={2}>
-    <CloseButton size="lg" pos="absolute" top={4} left={4} onClick={onClose} />
+  <Box height="100%" width="100%" px={2} pb={2} pos="relative">
+    <CloseButton size="lg" pos="absolute" top={2} left={4} onClick={onClose} />
     <Image
       src={imageSrc}
       width="100%"

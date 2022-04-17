@@ -15,14 +15,7 @@ const Camera = ({ onCapture, onError }) => {
   }, [webcamRef]);
 
   return (
-    <Flex
-      direction="column"
-      flex={1}
-      pos="relative"
-      overflow="hidden"
-      px={2}
-      pb={2}
-    >
+    <Flex direction="column" flex={1} pos="relative">
       <Webcam
         height="100%"
         flex={1}

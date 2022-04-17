@@ -1,3 +1,4 @@
+import { Box } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import Overlay from '../components/Overlay';
 import Camera from '../features/camera/Camera';
@@ -10,18 +11,18 @@ const CameraPage = () => {
   const [error, setError] = useState(null);
 
   return (
-    <>
+    <Box p={2} pt="var(--sat)" flex={1} display="flex">
       <Camera
         onCapture={(src) => setImageSrc(src)}
         onError={(err) => setError(err)}
       />
       {imageSrc && (
-        <Overlay display="flex" flexDirection="column">
+        <Overlay display="flex" flexDirection="column" pt="var(--sat)">
           <ImagePreview imageSrc={imageSrc} onClose={() => setImageSrc(null)} />
           <ImageControls imageSrc={imageSrc} />
         </Overlay>
       )}
-    </>
+    </Box>
   );
 };
 
