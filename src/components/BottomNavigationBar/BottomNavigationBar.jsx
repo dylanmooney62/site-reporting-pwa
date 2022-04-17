@@ -15,7 +15,7 @@ const BottomNavigationBar = () => (
       <Flex
         h={16}
         alignItems="center"
-        justifyContent="space-between"
+        justifyContent="space-around"
         px={[8, 0]}
       >
         {routes.map((route) => (

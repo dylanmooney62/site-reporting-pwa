@@ -21,7 +21,6 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<HomePage />} />
             <Route path="camera" element={<CameraPage />} />
             <Route path="map" element={<MapPage />} />
             <Route path="post">
