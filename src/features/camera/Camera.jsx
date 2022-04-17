@@ -1,43 +1,50 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactWebcam from 'react-webcam';
 import { FiCircle } from 'react-icons/fi';
-import { chakra, Flex, IconButton } from '@chakra-ui/react';
+import { chakra, Fade, Flex, IconButton } from '@chakra-ui/react';
 
 const Webcam = chakra(ReactWebcam);
 
 const Camera = ({ onCapture, onError }) => {
   const webcamRef = useRef(null);
+  const [success, setSuccess] = useState(false);
 
   const handleCapture = React.useCallback(() => {
     onCapture(webcamRef.current.getScreenshot());
   }, [webcamRef]);
 
   return (
-    <Flex direction="column" flex={1} pos="relative">
+    <Flex direction="column" pos="relative">
       <Webcam
-        height="100%"
-        flex={1}
         ref={webcamRef}
-        videoConstraints={{ facingMode: 'environment' }}
+        videoConstraints={{
+          facingMode: 'environment',
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+        }}
         screenshotFormat="image/webp"
-        objectFit="cover"
-        objectPosition="center"
         borderRadius="xl"
         onUserMediaError={onError}
-        forceScreenshotSourceSize
+        onUserMedia={() => {
+          setTimeout(() => {
+            setSuccess(true);
+          }, 1000);
+        }}
         imageSmoothing={false}
         screenshotQuality={1}
       />
       <Flex justifyContent="center" pos="absolute" bottom={8} left="0" w="full">
-        <IconButton
-          h="64px"
-          w="64px"
-          icon={<FiCircle size="4rem" style={{ strokeWidth: 2 }} />}
-          variant="ghost"
-          onClick={handleCapture}
-        />
+        <Fade in={success}>
+          <IconButton
+            h="64px"
+            w="64px"
+            icon={<FiCircle size="4rem" style={{ strokeWidth: 2 }} />}
+            variant="ghost"
+            onClick={handleCapture}
+          />
+        </Fade>
       </Flex>
     </Flex>
   );

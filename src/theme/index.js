@@ -23,6 +23,7 @@ const theme = extendTheme({
         flexDirection: 'column',
         backgroundColor: '#27272B',
         overflow: 'hidden',
+        paddingTop: 'env(safe-area-inset-top)',
       },
       'body, #root': {
         height: '100%',
@@ -30,6 +31,9 @@ const theme = extendTheme({
         flexDirection: 'column',
         flex: 1,
         overflow: 'hidden',
+      },
+      '.chakra-modal__content-container': {
+        height: '100vh !important',
       },
     },
   },

@@ -1,10 +1,10 @@
 import React from 'react';
-import { Center, Text } from '@chakra-ui/react';
+import { Fade, Text } from '@chakra-ui/react';
 
 const HomePage = () => (
-  <Center>
+  <Fade in unmountOnExit>
     <Text fontSize="lg">This is the Home page</Text>
-  </Center>
+  </Fade>
 );
 
 export default HomePage;

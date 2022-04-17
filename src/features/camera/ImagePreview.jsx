@@ -1,23 +1,25 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, CloseButton, Image } from '@chakra-ui/react';
+import { Flex, CloseButton, Image, Fade } from '@chakra-ui/react';
 
-const ImagePreview = ({ imageSrc, onClose }) => (
-  <Box height="100%" width="100%" px={2} pb={2} pos="relative">
-    <CloseButton size="lg" pos="absolute" top={2} left={4} onClick={onClose} />
-    <Image
-      src={imageSrc}
-      width="100%"
-      height="100%"
-      objectFit="cover"
-      objectPosition="center"
-      borderRadius="xl"
-    />
-  </Box>
+const ImagePreview = ({ src, onClose, ...props }) => (
+  <Flex
+    pos="relative"
+    flex={1}
+    justifyContent="center"
+    alignItems="center"
+    {...props}
+  >
+    <Fade in>
+      <CloseButton onClick={onClose} pos="absolute" top={6} left={4} />
+      <Image src={src} borderRadius="xl" />
+    </Fade>
+  </Flex>
 );
 
 ImagePreview.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
+  src: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 

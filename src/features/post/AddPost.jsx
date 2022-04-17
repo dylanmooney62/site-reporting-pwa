@@ -1,20 +1,31 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
   Box,
   Button,
+  Fade,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Slide,
   Textarea,
+  useDisclosure,
   VStack,
 } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 
+import { FiMinus } from 'react-icons/fi';
 import { useForm, Controller } from 'react-hook-form';
 
 import { selectLocation } from '../location/locationSlice';
@@ -22,6 +33,8 @@ import { selectLocation } from '../location/locationSlice';
 import ANIMALS from './animals.json';
 import BottomSheet from '../../components/BottomSheet';
 import { addPost, resetPostsStatus, selectPostsStatus } from './postsSlice';
+import ImagePreview from '../camera/ImagePreview';
+import ImageControls from '../camera/ImageControls';
 
 const animalOptions = ANIMALS.map((animal) => ({
   label: animal.charAt(0).toUpperCase() + animal.slice(1),
@@ -34,6 +47,7 @@ const AddPost = () => {
   const navigate = useNavigate();
   const location = useSelector(selectLocation);
   const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const postStatus = useSelector(selectPostsStatus);
 
@@ -75,26 +89,18 @@ const AddPost = () => {
   }, [postStatus]);
 
   return (
-    <Box
-      pos="absolute"
-      height="100vh"
-      w="full"
-      overflowY="auto"
-      overflowX="hidden"
-    >
-      <Box
-        pos="fixed"
-        height="66vh"
-        w="full"
-        bgImage={imageSrc}
-        bgSize="cover"
-        bgRepeat="no-repeat"
-        bgPosition="center"
-        zIndex={1}
-      />
-
-      <BottomSheet spacing="55vh">
-        <VStack as="form" spacing={6} onSubmit={handleSubmit(onSubmit)}>
+    <>
+      <Flex flex={1} flexDirection="column" justifyContent="center">
+        <ImagePreview src={imageSrc} onClose={() => navigate('/camera')} />
+        <ImageControls mt="auto" onPost={onOpen} />
+      </Flex>
+      <BottomSheet
+        isOpen={isOpen}
+        onClose={onClose}
+        autoFocus={false}
+        top="calc(100vh - 30vh)"
+      >
+        <VStack as="form" spacing={6} onSubmit={handleSubmit(onSubmit)} pb={4}>
           <FormControl isInvalid={errors?.name}>
             <FormLabel htmlFor="name">Name</FormLabel>
             <Input
@@ -144,7 +150,7 @@ const AddPost = () => {
           </Button>
         </VStack>
       </BottomSheet>
-    </Box>
+    </>
   );
 };
 

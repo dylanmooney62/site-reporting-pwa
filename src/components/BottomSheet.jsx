@@ -1,31 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Flex } from '@chakra-ui/react';
+import {
+  Box,
+  forwardRef,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+} from '@chakra-ui/react';
 import { FiMinus } from 'react-icons/fi';
 
-const BottomSheet = ({ spacing, children, ...props }) => (
-  <Box
-    pos="relative"
-    zIndex={200}
-    overflow="hidden"
-    bgColor="gray.800"
-    borderTopRadius="xl"
-    px={4}
-    pb="var(--sab)"
-    marginTop={spacing}
-    {...props}
-  >
-    <Flex
-      justifyContent="center"
-      transform="auto"
-      translateY={-2}
-      w="full"
-      color="gray.500"
+const BottomSheet = forwardRef(
+  ({ onClose, isOpen, children, top, ...props }, ref) => (
+    <Modal
+      onClose={onClose}
+      isOpen={isOpen}
+      scrollBehavior="outside"
+      motionPreset="slideInBottom"
+      size="xl"
+      {...props}
+      ref={ref}
     >
-      <FiMinus size="4rem" />
-    </Flex>
-    {children}
-  </Box>
+      <ModalOverlay />
+      <ModalContent top={top} borderRadius="xl">
+        <ModalHeader display="flex" justifyContent="center">
+          <Box pos="absolute" color="gray.500" transform="auto" translateY={-6}>
+            <FiMinus size="4rem" />
+          </Box>
+        </ModalHeader>
+        <ModalBody>{children}</ModalBody>
+      </ModalContent>
+    </Modal>
+  )
 );
 
 BottomSheet.propTypes = {

@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
-import { ChakraProvider, Flex, useDisclosure } from '@chakra-ui/react';
+import { ChakraProvider, Fade, Flex, useDisclosure } from '@chakra-ui/react';
 
 import {
   getLocation,
@@ -15,14 +15,12 @@ import '@fontsource/open-sans/700.css';
 import '@fontsource/open-sans/400.css';
 import '@fontsource/amaranth/400.css';
 import SplashScreen from './app/SplashScreen';
-import Navbar from './components/Navbar';
 import BottomNavigationBar from './components/BottomNavigationBar';
 import { useIsNestedRoute } from './hooks/useIsNestedRoute';
 
 const App = () => {
   const dispatch = useDispatch();
   const locationStatus = useSelector(selectLocationStatus);
-
   const isNestedRoute = useIsNestedRoute();
 
   useEffect(() => {
@@ -40,7 +38,6 @@ const App = () => {
     content = (
       <RemoveScroll forwardProps>
         <Flex flexDirection="column" flex={1}>
-          {isNestedRoute && <Navbar />}
           <Outlet />
           {!isNestedRoute && <BottomNavigationBar />}
         </Flex>
