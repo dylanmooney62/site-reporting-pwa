@@ -1,56 +1,26 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Box,
-  Button,
-  Container,
-  Fade,
-  Flex,
-  IconButton,
-} from '@chakra-ui/react';
-import { FiSend, FiSave } from 'react-icons/fi';
+import { Box, Button, Container } from '@chakra-ui/react';
+import { FiSend } from 'react-icons/fi';
 
-const ImageControls = ({ imageSrc, onPost }) => {
-  const handleSaveImage = () => {};
-
-  return (
-    <Box bg="gray.900" pb="var(--sab)">
-      <Container
-        maxW="container.xl"
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        py={2}
+const ImageControls = ({ onPost, ...props }) => (
+  <Box bg="gray.900" pb="var(--sab)" {...props}>
+    <Container maxW="container.xl" display="flex" py="4">
+      <Button
+        variant="primary"
+        px={6}
+        borderRadius="full"
+        rightIcon={<FiSend color="white" />}
+        ml="auto"
+        onClick={onPost}
       >
-        <Fade in>
-          <IconButton
-            variant="ghost"
-            colorScheme="white"
-            aria-label="Save Image"
-            size="lg"
-            icon={<FiSave />}
-            onClick={handleSaveImage}
-          />
-        </Fade>
-        <Fade in>
-          <Button
-            px={6}
-            bgColor="blue.500"
-            onClick={onPost}
-            borderRadius="full"
-            rightIcon={<FiSend color="white" />}
-          >
-            Post
-          </Button>
-        </Fade>
-      </Container>
-    </Box>
-  );
-};
+        Post
+      </Button>
+    </Container>
+  </Box>
+);
 
 ImageControls.propTypes = {
-  imageSrc: PropTypes.string.isRequired,
   onPost: PropTypes.func.isRequired,
 };
 

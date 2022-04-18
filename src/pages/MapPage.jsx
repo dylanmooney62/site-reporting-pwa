@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDisclosure } from '@chakra-ui/react';
 
 import MapGL from '../features/map/MapGL';
-import PostDetailDrawer from '../features/post/PostDrawer/PostDrawer';
+import PostDrawer from '../features/post/PostDrawer/PostDrawer';
 
 const MapPage = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -21,11 +21,7 @@ const MapPage = () => {
     <>
       <MapGL onMarkerClick={handleMarkerClick} />
       {selectedPost && (
-        <PostDetailDrawer
-          isOpen={isOpen}
-          onClose={onClose}
-          post={selectedPost}
-        />
+        <PostDrawer isOpen={isOpen} onClose={onClose} post={selectedPost} />
       )}
     </>
   );

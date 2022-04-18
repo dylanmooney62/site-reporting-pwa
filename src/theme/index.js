@@ -70,6 +70,18 @@ const theme = extendTheme({
         size: 'xl',
       },
     },
+    Button: {
+      variants: {
+        danger: {
+          bgColor: 'red.500',
+          color: 'white',
+        },
+        primary: {
+          bgColor: 'blue.400',
+          color: 'white',
+        },
+      },
+    },
   },
 });
 

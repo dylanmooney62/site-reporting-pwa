@@ -7,9 +7,8 @@ import { chakra, Fade, Flex, IconButton } from '@chakra-ui/react';
 
 const Webcam = chakra(ReactWebcam);
 
-const Camera = ({ onCapture, onError }) => {
+const Camera = ({ onCapture }) => {
   const webcamRef = useRef(null);
-  const [success, setSuccess] = useState(false);
 
   const handleCapture = React.useCallback(() => {
     onCapture(webcamRef.current.getScreenshot());
@@ -26,25 +25,17 @@ const Camera = ({ onCapture, onError }) => {
         }}
         screenshotFormat="image/webp"
         borderRadius="xl"
-        onUserMediaError={onError}
-        onUserMedia={() => {
-          setTimeout(() => {
-            setSuccess(true);
-          }, 1000);
-        }}
         imageSmoothing={false}
         screenshotQuality={1}
       />
       <Flex justifyContent="center" pos="absolute" bottom={8} left="0" w="full">
-        <Fade in={success}>
-          <IconButton
-            h="64px"
-            w="64px"
-            icon={<FiCircle size="4rem" style={{ strokeWidth: 2 }} />}
-            variant="ghost"
-            onClick={handleCapture}
-          />
-        </Fade>
+        <IconButton
+          h="64px"
+          w="64px"
+          icon={<FiCircle size="4rem" style={{ strokeWidth: 2 }} />}
+          variant="ghost"
+          onClick={handleCapture}
+        />
       </Flex>
     </Flex>
   );
@@ -52,7 +43,6 @@ const Camera = ({ onCapture, onError }) => {
 
 Camera.propTypes = {
   onCapture: PropTypes.func.isRequired,
-  onError: PropTypes.func.isRequired,
 };
 
 export default Camera;

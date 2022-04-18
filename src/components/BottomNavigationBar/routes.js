@@ -2,7 +2,7 @@ import { FiMap, FiCamera } from 'react-icons/fi';
 
 export default [
   {
-    to: '/map',
+    to: '/',
     label: 'Map',
     icon: FiMap,
     activeColor: 'blue.400',

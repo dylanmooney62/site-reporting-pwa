@@ -5,16 +5,18 @@ import Mapbox, { Marker } from 'react-map-gl';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@chakra-ui/react';
 import { IoIosPaw } from 'react-icons/io';
+import { useLiveQuery } from 'dexie-react-hooks';
 import useWindowDimensions from '../../hooks/useWindowDimensions';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { MapViewStateUpdated, selectMapViewState } from './mapSlice';
 import { selectPosts } from '../post/postsSlice';
 
+import { db } from '../../app/db';
+
 const MapGL = ({ onMarkerClick }) => {
   const dispatch = useDispatch();
 
   const viewState = useSelector(selectMapViewState);
-  const posts = useSelector(selectPosts);
 
   const dimensions = useWindowDimensions();
   const mapRef = useRef();
@@ -22,6 +24,8 @@ const MapGL = ({ onMarkerClick }) => {
   // Height is calculated from height of the screen and the height of the bottom navigation bar
   const height = dimensions.height - 64;
   const { width } = dimensions;
+
+  const posts = useSelector(selectPosts);
 
   const handleClick = useCallback(
     (post) => {

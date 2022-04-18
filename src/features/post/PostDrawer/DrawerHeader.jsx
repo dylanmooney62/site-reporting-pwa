@@ -8,9 +8,8 @@ import {
   Text,
   VStack,
 } from '@chakra-ui/react';
-import PostDetailDrawerMenu from './DrawerMenu';
 
-const PostDetailHeader = ({ title, subtitle, avatar }) => (
+const PostDrawerHeader = ({ name, type, image, children }) => (
   <DrawerHeader
     borderBottom="1px"
     borderColor="gray.600"
@@ -18,10 +17,10 @@ const PostDetailHeader = ({ title, subtitle, avatar }) => (
     justifyContent="space-between"
   >
     <HStack spacing={4}>
-      <Avatar src={avatar} ignoreFallback loading="eager" />
+      <Avatar src={image} ignoreFallback loading="eager" />
       <VStack spacing={0.5} alignItems="start">
         <Heading as="h2" size="md" color="gray.300">
-          {title}
+          {name}
         </Heading>
         <Text
           color="gray.400"
@@ -29,18 +28,23 @@ const PostDetailHeader = ({ title, subtitle, avatar }) => (
           fontStyle="italic"
           fontWeight="400"
         >
-          {subtitle}
+          {type}
         </Text>
       </VStack>
     </HStack>
-    <PostDetailDrawerMenu />
+    {children}
   </DrawerHeader>
 );
 
-PostDetailHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
-  avatar: PropTypes.string.isRequired,
+PostDrawerHeader.propTypes = {
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  children: PropTypes.node,
 };
 
-export default PostDetailHeader;
+PostDrawerHeader.defaultProps = {
+  children: null,
+};
+
+export default PostDrawerHeader;

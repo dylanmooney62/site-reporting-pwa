@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation } from 'react-router-dom';
 import { RemoveScroll } from 'react-remove-scroll';
-import { ChakraProvider, Fade, Flex, useDisclosure } from '@chakra-ui/react';
+import { ChakraProvider, Flex } from '@chakra-ui/react';
 
 import {
   getLocation,
@@ -17,22 +17,33 @@ import '@fontsource/amaranth/400.css';
 import SplashScreen from './app/SplashScreen';
 import BottomNavigationBar from './components/BottomNavigationBar';
 import { useIsNestedRoute } from './hooks/useIsNestedRoute';
+import { getPosts, selectPostsStatus } from './features/post/postsSlice';
 
 const App = () => {
   const dispatch = useDispatch();
   const locationStatus = useSelector(selectLocationStatus);
+  const postStatus = useSelector(selectPostsStatus);
+
   const isNestedRoute = useIsNestedRoute();
 
   useEffect(() => {
     if (locationStatus === 'idle') {
-      dispatch(getLocation());
+      setTimeout(() => {
+        dispatch(getLocation());
+        dispatch(getPosts());
+      }, 1000);
     }
   }, [dispatch, locationStatus]);
 
   let content;
 
+  const locLoading = locationStatus === 'loading' || locationStatus === 'idle';
+  const postLoading = postStatus === 'loading';
+
+  const isLoading = locLoading || postLoading;
+
   // Display the splash screen if the location is still loading
-  if (locationStatus === 'loading' || locationStatus === 'idle') {
+  if (isLoading) {
     content = <SplashScreen />;
   } else {
     content = (
