@@ -9,7 +9,6 @@ import ImageControls from '../camera/ImageControls';
 import PostForm from './PostForm';
 import { selectLocation } from '../location/locationSlice';
 
-// eslint-disable-next-line react/prop-types
 const AddPost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

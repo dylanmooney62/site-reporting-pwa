@@ -1,48 +1,54 @@
-/* eslint-disable no-unused-vars */
-import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef } from 'react';
 import ReactWebcam from 'react-webcam';
 import { FiCircle } from 'react-icons/fi';
-import { chakra, Fade, Flex, IconButton } from '@chakra-ui/react';
+import { chakra, Flex, Icon, IconButton } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
 
 const Webcam = chakra(ReactWebcam);
 
-const Camera = ({ onCapture }) => {
+const videoConstraints = {
+  facingMode: 'environment',
+  width: { ideal: 1920 },
+  height: { ideal: 1080 },
+};
+
+const Camera = () => {
   const webcamRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleCapture = React.useCallback(() => {
-    onCapture(webcamRef.current.getScreenshot());
+    navigate('/post/new', {
+      replace: true,
+      state: { image: webcamRef.current.getScreenshot() },
+    });
   }, [webcamRef]);
 
   return (
-    <Flex direction="column" pos="relative">
+    <Flex
+      flex={1}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      pos="relative"
+      p={2}
+    >
       <Webcam
         ref={webcamRef}
-        videoConstraints={{
-          facingMode: 'environment',
-          width: { ideal: 1920 },
-          height: { ideal: 1080 },
-        }}
+        videoConstraints={videoConstraints}
         screenshotFormat="image/webp"
         borderRadius="xl"
         imageSmoothing={false}
         screenshotQuality={1}
       />
-      <Flex justifyContent="center" pos="absolute" bottom={8} left="0" w="full">
-        <IconButton
-          h="64px"
-          w="64px"
-          icon={<FiCircle size="4rem" style={{ strokeWidth: 2 }} />}
-          variant="ghost"
-          onClick={handleCapture}
-        />
-      </Flex>
+      <IconButton
+        pos="absolute"
+        bottom={16}
+        variant="ghost"
+        icon={<Icon as={FiCircle} strokeWidth={2} w={20} h={20} />}
+        onClick={handleCapture}
+      />
     </Flex>
   );
-};
-
-Camera.propTypes = {
-  onCapture: PropTypes.func.isRequired,
 };
 
 export default Camera;

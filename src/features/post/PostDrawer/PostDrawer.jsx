@@ -19,25 +19,32 @@ import PostDate from './PostDate';
 import PostLocation from './PostLocation';
 import DrawerHeader from './DrawerHeader';
 import DrawerMenu from './DrawerMenu';
-import { deletePost, resetPostsStatus, selectPostsStatus } from '../postsSlice';
+import { deletePost, selectPostsStatus } from '../postsSlice';
 import { ConfirmationModal } from '../../../components/ConfirmationModal';
 
-const PostDrawer = forwardRef(({ post, isOpen, onClose }, ref) => {
+const PostDrawer = forwardRef(({ post }, ref) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { onOpen, onClose, isOpen } = useDisclosure();
   const {
-    isOpen: modalOpen,
     onOpen: onModalOpen,
     onClose: onModalClose,
+    isOpen: isModalOpen,
   } = useDisclosure();
-  const dispatch = useDispatch();
+
   const postStatus = useSelector(selectPostsStatus);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    if (postStatus !== 'deleted') return;
+    if (post) {
+      onOpen();
+    }
+  }, [post]);
 
-    onModalClose();
-    onClose();
-    dispatch(resetPostsStatus());
+  useEffect(() => {
+    if (postStatus === 'deleted') {
+      onModalClose();
+      onClose();
+    }
   }, [postStatus]);
 
   const handleDelete = () => {
@@ -50,42 +57,47 @@ const PostDrawer = forwardRef(({ post, isOpen, onClose }, ref) => {
 
   return (
     <>
-      <Drawer placement="bottom" isOpen={isOpen} onClose={onClose} ref={ref}>
+      <Drawer placement="bottom" ref={ref} isOpen={isOpen} onClose={onClose}>
         <DrawerOverlay />
         <DrawerContent pb="var(--sab)" borderTopRadius="xl">
-          <DrawerHeader image={post?.image} name={post?.name} type={post?.type}>
-            <DrawerMenu onDelete={onModalOpen} onEdit={handleEdit} />
-          </DrawerHeader>
-          <DrawerBody py={0} px={0}>
-            <HStack
-              spacing={6}
-              w="full"
-              p={4}
-              borderBottom="1px"
-              borderColor="gray.600"
-            >
-              <PostDate date={post?.date} />
-              <PostLocation location={post?.location} />
-            </HStack>
-            <Box p={4}>
-              <Text fontSize="sm" color="gray.200">
-                {post?.description}
-              </Text>
-            </Box>
-          </DrawerBody>
+          {post && (
+            <>
+              <DrawerHeader
+                image={post?.image}
+                name={post?.name}
+                type={post?.type}
+              >
+                <DrawerMenu onDelete={onModalOpen} onEdit={handleEdit} />
+              </DrawerHeader>
+              <DrawerBody py={0} px={0}>
+                <HStack
+                  spacing={6}
+                  w="full"
+                  p={4}
+                  borderBottom="1px"
+                  borderColor="gray.600"
+                >
+                  <PostDate date={post?.date} />
+                  <PostLocation location={post?.location} />
+                </HStack>
+                <Box p={4}>
+                  <Text fontSize="sm" color="gray.200">
+                    {post?.description}
+                  </Text>
+                </Box>
+              </DrawerBody>
+            </>
+          )}
         </DrawerContent>
       </Drawer>
       <ConfirmationModal
-        isOpen={modalOpen}
+        isOpen={isModalOpen}
         title="Delete Post"
         body="Are you sure you want to delete post?"
         confirmText="Delete Post"
-        onConfirm={handleDelete}
-        confirmButtonProps={{
-          variant: 'danger',
-          isLoading: postStatus === 'deleting',
-        }}
+        confirmButtonProps={{ variant: 'danger' }}
         cancelButtonProps={{ variant: 'ghost' }}
+        onConfirm={handleDelete}
         onCancel={onModalClose}
       />
     </>

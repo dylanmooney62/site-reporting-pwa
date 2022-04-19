@@ -3,8 +3,8 @@ import { db } from '../../app/db';
 
 const initialState = {
   posts: [],
-  error: null,
   status: 'idle',
+  error: null,
 };
 
 // Thunks
@@ -89,8 +89,8 @@ const postsSlice = createSlice({
         state.status = 'posting';
       })
       .addCase(addPost.fulfilled, (state, action) => {
-        state.status = 'added';
         state.posts.push(action.payload);
+        state.status = 'added';
       })
       .addCase(addPost.rejected, (state, action) => {
         state.error = action.error.message;
@@ -102,12 +102,12 @@ const postsSlice = createSlice({
         state.status = 'deleting';
       })
       .addCase(deletePost.fulfilled, (state, action) => {
-        state.posts = state.posts.filter((post) => post.id !== action.payload);
         state.status = 'deleted';
+        state.posts = state.posts.filter((post) => post.id !== action.payload);
       })
       .addCase(deletePost.rejected, (state, action) => {
-        state.error = action.error.message;
         state.status = 'failed';
+        state.error = action.error.message;
       });
     // Updating Posts
     builder
@@ -126,8 +126,8 @@ const postsSlice = createSlice({
         state.posts[existingPost] = updatedPost;
       })
       .addCase(updatePost.rejected, (state, action) => {
-        state.error = action.error.message;
         state.status = 'failed';
+        state.error = action.error.message;
       });
   },
 });

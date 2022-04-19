@@ -10,9 +10,10 @@ import reportWebVitals from './reportWebVitals';
 import App from './App';
 import store from './app/store';
 import theme from './theme';
-import { MapPage, CameraPage } from './pages';
 import AddPost from './features/post/AddPost';
 import EditPost from './features/post/EditPost';
+import Camera from './features/camera/Camera';
+import MapGL from './features/map/MapGL';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -21,8 +22,8 @@ ReactDOM.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route exact path="/" element={<MapPage />} />
-            <Route path="camera" element={<CameraPage />} />
+            <Route exact path="/" element={<MapGL />} />
+            <Route path="camera" element={<Camera />} />
             <Route path="post">
               <Route path="new" element={<AddPost />} />
               <Route path="edit/:id" element={<EditPost />} />

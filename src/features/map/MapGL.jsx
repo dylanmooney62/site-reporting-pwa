@@ -1,85 +1,69 @@
 /* eslint-disable no-unused-vars */
-import React, { useRef, useMemo, useCallback } from 'react';
+import React, { useRef, useMemo, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
-import Mapbox, { Marker } from 'react-map-gl';
+import Mapbox from 'react-map-gl';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box } from '@chakra-ui/react';
-import { IoIosPaw } from 'react-icons/io';
-import { useLiveQuery } from 'dexie-react-hooks';
-import useWindowDimensions from '../../hooks/useWindowDimensions';
+
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { MapViewStateUpdated, selectMapViewState } from './mapSlice';
 import { selectPosts } from '../post/postsSlice';
+import Marker from './Marker';
 
-import { db } from '../../app/db';
+import PostDrawer from '../post/PostDrawer/PostDrawer';
 
-const MapGL = ({ onMarkerClick }) => {
+const MapGL = () => {
   const dispatch = useDispatch();
 
   const viewState = useSelector(selectMapViewState);
+  const posts = useSelector(selectPosts);
+  const [selectedPost, setSelectedPost] = useState(null);
 
-  const dimensions = useWindowDimensions();
   const mapRef = useRef();
 
-  // Height is calculated from height of the screen and the height of the bottom navigation bar
-  const height = dimensions.height - 64;
-  const { width } = dimensions;
-
-  const posts = useSelector(selectPosts);
-
   const handleClick = useCallback(
-    (post) => {
+    ({ id, location }) => {
       mapRef.current?.flyTo({
-        center: [post.location.lng, post.location.lat],
+        center: [location.lng, location.lat],
         zoom: 16,
         duration: 1000,
       });
 
-      onMarkerClick(post);
+      setSelectedPost({ ...posts.find((p) => p.id === id) });
     },
     [posts]
   );
 
-  const markers = useMemo(
-    () =>
-      posts.map((post) => (
-        <Marker
-          key={post.id}
-          longitude={post.location.lng}
-          latitude={post.location.lat}
-          onClick={() => handleClick(post)}
-        >
-          <Box color="blue.200" p={2}>
-            <IoIosPaw size={24} />
-          </Box>
-        </Marker>
-      )),
-    [posts]
-  );
+  const markers = posts.map((post) => (
+    <Marker
+      key={post.id}
+      lat={post.location.lat}
+      lng={post.location.lng}
+      onClick={() => handleClick(post)}
+    />
+  ));
 
   return (
-    <Mapbox
-      ref={mapRef}
-      reuseMaps
-      initialViewState={viewState}
-      onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
-      style={{
-        width,
-        height: `calc(${height}px - var(--sab))`,
-        position: 'fixed',
-        left: 0,
-        top: 0,
-        zIndex: 10,
-      }}
-      mapStyle="mapbox://styles/mapbox/dark-v10"
-    >
-      {markers}
-    </Mapbox>
+    <>
+      <Mapbox
+        ref={mapRef}
+        reuseMaps
+        initialViewState={viewState}
+        onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
+        style={{
+          width: '100%',
+          height: 'calc(100% + env(safe-area-inset-top))',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          zIndex: 10,
+        }}
+        mapStyle="mapbox://styles/mapbox/dark-v10"
+      >
+        {markers}
+      </Mapbox>
+      <PostDrawer post={selectedPost} />
+    </>
   );
-};
-
-MapGL.propTypes = {
-  onMarkerClick: PropTypes.func.isRequired,
 };
 
 export default MapGL;

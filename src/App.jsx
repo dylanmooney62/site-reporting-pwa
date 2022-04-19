@@ -18,6 +18,7 @@ import SplashScreen from './app/SplashScreen';
 import BottomNavigationBar from './components/BottomNavigationBar';
 import { useIsNestedRoute } from './hooks/useIsNestedRoute';
 import { getPosts, selectPostsStatus } from './features/post/postsSlice';
+import { BackButton } from './components/BackButton';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const App = () => {
     content = (
       <RemoveScroll forwardProps>
         <Flex flexDirection="column" flex={1}>
+          {isNestedRoute && <BackButton />}
           <Outlet />
           {!isNestedRoute && <BottomNavigationBar />}
         </Flex>
