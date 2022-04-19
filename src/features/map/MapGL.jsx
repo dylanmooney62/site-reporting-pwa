@@ -1,7 +1,6 @@
-/* eslint-disable no-unused-vars */
-import React, { useRef, useMemo, useCallback, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useRef, useCallback, useState } from 'react';
 import Mapbox from 'react-map-gl';
+
 import { useDispatch, useSelector } from 'react-redux';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -58,7 +57,6 @@ const MapGL = () => {
           zIndex: 10,
         }}
         mapStyle="mapbox://styles/mapbox/dark-v10"
-        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       >
         {markers}
       </Mapbox>
