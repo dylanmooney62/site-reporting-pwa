@@ -5,7 +5,9 @@ import React, { useRef, useCallback, useState } from 'react';
 import Mapbox from 'react-map-gl';
 
 import { useDispatch, useSelector } from 'react-redux';
-import mapboxgl from '!mapbox-gl';
+
+import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 
 import { MapViewStateUpdated, selectMapViewState } from './mapSlice';
 import { selectPosts } from '../post/postsSlice';
@@ -14,8 +16,7 @@ import PostDrawer from '../post/PostDrawer/PostDrawer';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-mapboxgl.workerClass =
-  require('worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker').default;
+mapboxgl.workerClass = MapboxWorker;
 
 const MapGL = () => {
   const dispatch = useDispatch();
