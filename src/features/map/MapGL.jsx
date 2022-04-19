@@ -58,6 +58,7 @@ const MapGL = () => {
           zIndex: 10,
         }}
         mapStyle="mapbox://styles/mapbox/dark-v10"
+        mapboxAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
       >
         {markers}
       </Mapbox>
