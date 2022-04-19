@@ -3,9 +3,9 @@
 /* eslint-disable import/no-webpack-loader-syntax */
 import React, { useRef, useCallback, useState } from 'react';
 import Mapbox from 'react-map-gl';
-import mapboxgl from 'mapbox-gl';
 
 import { useDispatch, useSelector } from 'react-redux';
+import mapboxgl from '!mapbox-gl';
 
 import { MapViewStateUpdated, selectMapViewState } from './mapSlice';
 import { selectPosts } from '../post/postsSlice';
