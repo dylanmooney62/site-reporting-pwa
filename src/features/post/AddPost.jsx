@@ -36,14 +36,20 @@ const AddPost = () => {
   const handleSubmit = ({ name, type, description }) => {
     if (postStatus === 'adding') return;
 
-    const post = { name, type, description, image, location };
+    const post = { name, type: type.value, description, image, location };
 
     dispatch(addPost(post));
   };
 
   return (
     <>
-      <Center flex={1} position="relative" as={Fade} in mt="-64px">
+      <Center
+        flex={1}
+        position="relative"
+        as={Fade}
+        in
+        mt="calc(-64px - var(--sab))"
+      >
         <Image src={image} mx="auto" borderRadius="xl" pos="absolute" />
       </Center>
       <ImageControls onPost={onOpen} pos="absolute" bottom="0" w="full" />
