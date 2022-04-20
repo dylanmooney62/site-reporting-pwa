@@ -1,6 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useRef } from 'react';
 import ReactWebcam from 'react-webcam';
-import { Center, chakra } from '@chakra-ui/react';
+import { Center, chakra, Flex } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import CameraButton from './CameraButton';
 
@@ -16,18 +17,18 @@ const Camera = () => {
   }, [webcamRef]);
 
   return (
-    <Center pos="relative" flex={1} p={2}>
+    <Center flex={1} my="auto" display="flex" pos="relative">
       <Webcam
         ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        screenshotQuality={1}
+        borderRadius="xl"
+        imageSmoothing={false}
         videoConstraints={{
           facingMode: 'environment',
           width: { ideal: 1920 },
           height: { ideal: 1080 },
         }}
-        screenshotFormat="image/jpeg"
-        screenshotQuality={1}
-        borderRadius="xl"
-        imageSmoothing={false}
       />
       <CameraButton onCapture={handleCapture} />
     </Center>
