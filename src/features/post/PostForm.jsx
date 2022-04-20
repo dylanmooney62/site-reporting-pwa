@@ -76,7 +76,7 @@ const PostForm = ({ post, onSubmit, submitText }) => {
         as="textarea"
         error={errors?.description?.message}
         {...register('description')}
-        defaultValue={post?.name}
+        defaultValue={post?.description}
       />
 
       <Button variant="primary" isFullWidth size="lg" type="submit">

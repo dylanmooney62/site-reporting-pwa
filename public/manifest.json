@@ -3,8 +3,8 @@
   "background_color": "#1A202C",
   "display": "standalone",
   "start_url": "/",
-  "name": "Wildlife Tracker",
-  "short_name": "Wildlife Tracker",
+  "name": "AnimalSnap",
+  "short_name": "AnimalSnap",
   "icons": [
     {
       "src": "assets/manifest-icon-192.maskable.png",

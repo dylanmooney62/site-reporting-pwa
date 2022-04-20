@@ -93,7 +93,7 @@ const PostDrawer = forwardRef(({ post }, ref) => {
       <ConfirmationModal
         isOpen={isModalOpen}
         title="Delete Post"
-        body="Are you sure you want to delete post?"
+        body="Are you sure you want to delete this post?"
         confirmText="Delete Post"
         confirmButtonProps={{ variant: 'danger' }}
         cancelButtonProps={{ variant: 'ghost' }}
