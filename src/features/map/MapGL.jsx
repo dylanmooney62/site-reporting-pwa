@@ -10,6 +10,7 @@ import { selectPosts } from '../post/postsSlice';
 import Marker from './Marker';
 import PostDrawer from '../post/PostDrawer/PostDrawer';
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapGL = () => {
@@ -52,8 +53,11 @@ const MapGL = () => {
         reuseMap
         initialViewState={viewState}
         onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
-        width="1000px"
-        height="1000px"
+        style={{
+          position: 'absolute',
+          height: 'calc(100vh - 64px)',
+          width: '100vw',
+        }}
         mapStyle="mapbox://styles/mapbox/dark-v10"
       >
         {markers}
