@@ -27,6 +27,7 @@ const Camera = () => {
         screenshotFormat="image/jpeg"
         screenshotQuality={1}
         borderRadius="xl"
+        imageSmoothing={false}
       />
       <CameraButton onCapture={handleCapture} />
     </Center>

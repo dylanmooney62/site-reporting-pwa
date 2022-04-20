@@ -52,7 +52,7 @@ const PostDrawer = forwardRef(({ post }, ref) => {
   };
 
   const handleEdit = () => {
-    navigate(`post/edit/${post.id}`, { replace: true });
+    navigate(`post/edit/${post.id}`);
   };
 
   return (

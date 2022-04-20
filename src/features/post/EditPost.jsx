@@ -1,11 +1,10 @@
-/* eslint-disable  */
-import { Spinner } from '@chakra-ui/react';
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/jsx-boolean-value */
 import React, { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
-import { Image } from '@chakra-ui/react';
-import BottomSheet from '../../components/BottomSheet';
+import { Image, useDisclosure } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import {
   resetPostsStatus,
   selectPostById,
@@ -14,6 +13,7 @@ import {
 } from './postsSlice';
 
 import PostForm from './PostForm';
+import { BottomSheet } from '../../components/BottomSheet';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -47,18 +47,18 @@ const EditPost = () => {
     <>
       <Image
         src={post.image}
-        height="60vh"
+        height="100vh"
         objectFit="cover"
         objectPosition="center"
         pos="fixed"
         inset="0"
         w="full"
       />
-      <BottomSheet isOpen top="35vh">
+      <BottomSheet isOpen>
         <PostForm
           post={post}
           onSubmit={handleSubmit}
-          isLoading={postStatus === 'updating'}
+          submitText="Update Post"
         />
       </BottomSheet>
     </>

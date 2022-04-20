@@ -1,41 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  forwardRef,
-  Icon,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalOverlay,
+  Drawer,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerContent,
 } from '@chakra-ui/react';
-import { FiMinus } from 'react-icons/fi';
 
-const BottomSheet = forwardRef(
-  ({ onClose, isOpen, children, top = '50vh', ...props }, ref) => (
-    <Modal
-      onClose={onClose}
-      isOpen={isOpen}
-      scrollBehavior="outside"
-      motionPreset="slideInBottom"
-      autoFocus={false}
-      size="xl"
-      {...props}
-      ref={ref}
-    >
-      <ModalOverlay />
-      <ModalContent top={top} borderRadius="xl">
-        <Icon as={FiMinus} mx="auto" w={12} h={12} color="gray.400" />
-        <ModalBody>{children}</ModalBody>
-      </ModalContent>
-    </Modal>
-  )
+export const BottomSheet = ({ isOpen, onClose, children, ...props }) => (
+  <Drawer
+    isOpen={isOpen}
+    onClose={onClose}
+    placement="bottom"
+    autoFocus={false}
+    {...props}
+  >
+    <DrawerOverlay />
+    <DrawerContent pb="var(--sab)" borderTopRadius="xl" pt={6}>
+      <DrawerBody>{children}</DrawerBody>
+    </DrawerContent>
+  </Drawer>
 );
 
 BottomSheet.propTypes = {
-  children: PropTypes.node.isRequired,
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func,
-  top: PropTypes.string,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
 };
-
-export default BottomSheet;

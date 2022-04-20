@@ -17,7 +17,7 @@ export const BackButton = ({ to, icon }) => {
       icon={icon || <Icon as={FiArrowLeft} w={6} h={6} />}
       aria-label="back"
       onClick={() => navigate(to || -1)}
-      zIndex={100000}
+      zIndex="popover"
     />
   );
 };

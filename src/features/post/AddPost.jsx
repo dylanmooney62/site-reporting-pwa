@@ -5,20 +5,21 @@ import { Center, Fade, Image, useDisclosure } from '@chakra-ui/react';
 
 import { addPost, resetPostsStatus, selectPostsStatus } from './postsSlice';
 import { selectLocation } from '../location/locationSlice';
-import BottomSheet from '../../components/BottomSheet';
 
 import ImageControls from '../camera/ImageControls';
 import PostForm from './PostForm';
+import { BottomSheet } from '../../components/BottomSheet';
 
 const AddPost = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const postStatus = useSelector(selectPostsStatus);
 
   const location = useSelector(selectLocation);
 
   const image = useLocation().state?.image;
+
+  const { onOpen, onClose, isOpen } = useDisclosure();
 
   useEffect(() => {
     if (!image) {
@@ -50,15 +51,11 @@ const AddPost = () => {
         in
         mt="calc(-64px - var(--sab))"
       >
-        <Image src={image} mx="auto" borderRadius="xl" pos="absolute" />
+        <Image src={image} borderRadius="xl" pos="absolute" />
       </Center>
       <ImageControls onPost={onOpen} pos="absolute" bottom="0" w="full" />
-      <BottomSheet isOpen={isOpen} onClose={onClose} top="calc(100vh - 30vh)">
-        <PostForm
-          post={null}
-          onSubmit={handleSubmit}
-          isLoading={postStatus === 'loading'}
-        />
+      <BottomSheet onOpen={onOpen} onClose={onClose} isOpen={isOpen}>
+        <PostForm onSubmit={handleSubmit} submitText="Add Post" />
       </BottomSheet>
     </>
   );

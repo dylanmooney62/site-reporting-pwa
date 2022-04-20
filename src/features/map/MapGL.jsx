@@ -9,6 +9,7 @@ import Marker from './Marker';
 import PostDrawer from '../post/PostDrawer/PostDrawer';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { selectLocation } from '../location/locationSlice';
 
 const ReactMap = () => {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const ReactMap = () => {
   const viewState = useSelector(selectMapViewState);
   const posts = useSelector(selectPosts);
   const [selectedPost, setSelectedPost] = useState(null);
+  const userLocation = useSelector(selectLocation);
 
   const mapRef = useRef();
 
@@ -46,7 +48,13 @@ const ReactMap = () => {
       <Map
         ref={mapRef}
         reuseMap
-        initialViewState={viewState}
+        initialViewState={
+          viewState ?? {
+            latitude: userLocation?.lat,
+            longitude: userLocation?.lng,
+            zoom: 6,
+          }
+        }
         onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
         style={{
           position: 'fixed',

@@ -1,26 +1,23 @@
-/* eslint-disable  */
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import PropTypes from 'prop-types';
+
+import { useForm } from 'react-hook-form';
+import { Button, VStack } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
+
 import { selectLocation } from '../location/locationSlice';
-import {
-  Button,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Textarea,
-  VStack,
-} from '@chakra-ui/react';
+
+import { InputGroup } from '../../components/InputGroup';
+import { SelectGroup } from '../../components/SelectGroup';
+
 import ANIMALS from './animals.json';
-import { Select } from 'chakra-react-select';
 
 const options = ANIMALS.map((animal) => ({
   label: animal.charAt(0).toUpperCase() + animal.slice(1),
-  value: animal,
+  value: animal.charAt(0).toUpperCase() + animal.slice(1),
 }));
 
-const PostForm = ({ post, onSubmit, isLoading }) => {
+const PostForm = ({ post, onSubmit, submitText }) => {
   const {
     register,
     handleSubmit,
@@ -28,69 +25,73 @@ const PostForm = ({ post, onSubmit, isLoading }) => {
     control,
   } = useForm();
 
-  const location = useSelector(selectLocation);
-
-  const loc = post ? post.location : location;
-  const selectValue = post ? post.type : '';
-
   return (
-    <VStack as="form" spacing={6} onSubmit={handleSubmit(onSubmit)} pb={4}>
-      <FormControl isInvalid={errors?.name}>
-        <FormLabel htmlFor="name">Name</FormLabel>
-        <Input
-          {...register('name', {
-            required: 'Animal name is required.',
-          })}
-          id="name"
-          defaultValue={post && post.name}
-        />
-        <FormErrorMessage>{errors?.name?.message}</FormErrorMessage>
-      </FormControl>
+    <VStack
+      as="form"
+      spacing={6}
+      onSubmit={handleSubmit(onSubmit)}
+      pb={4}
+      bg="gray.700"
+    >
+      <InputGroup
+        id="name"
+        label="Name"
+        error={errors?.name?.message}
+        {...register('name', { required: 'Animal name is required' })}
+        defaultValue={post?.name}
+      />
 
-      <FormControl isInvalid={errors?.type}>
-        <FormLabel htmlFor="type">Animal Type</FormLabel>
-        <Controller
-          control={control}
-          name="type"
-          rules={{ required: 'Animal type is required.' }}
-          render={({ field }) => (
-            <Select
-              {...field}
-              placeholder="Select animal type"
-              options={options}
-              value={options.find((o) => o.value === selectValue)}
-            />
-          )}
-        />
+      <SelectGroup
+        id="animal"
+        label="Animal"
+        error={errors?.type?.message}
+        controller={control}
+        controllerProps={{
+          name: 'type',
+          rules: { required: 'Animal type is required' },
+        }}
+        selectProps={{
+          options,
+          isSearchable: true,
+          placeholder: 'Select animal type',
+          value:
+            post?.type && options.find((option) => option.value === post.type),
+        }}
+      />
 
-        <FormErrorMessage>{errors?.type?.message}</FormErrorMessage>
-      </FormControl>
+      <InputGroup
+        id="location"
+        label="Location"
+        value={
+          post?.location
+            ? Object.values(post.location)
+            : Object.values(useSelector(selectLocation))
+        }
+        readOnly
+      />
 
-      <FormControl>
-        <FormLabel htmlFor="location">Location</FormLabel>
-        <Input value={[loc.lat, loc.lng].join(', ')} readOnly />
-      </FormControl>
+      <InputGroup
+        id="description"
+        label="Description"
+        as="textarea"
+        error={errors?.description?.message}
+        {...register('description')}
+        defaultValue={post?.name}
+      />
 
-      <FormControl>
-        <FormLabel htmlFor="description">Description</FormLabel>
-        <Textarea
-          {...register('description')}
-          id="description"
-          defaultValue={post && post.description}
-        />
-      </FormControl>
-
-      <Button
-        size="lg"
-        isFullWidth
-        bgColor="blue.500"
-        type="submit"
-        isLoading={isLoading}
-      >
-        Save Post
+      <Button variant="primary" isFullWidth size="lg" type="submit">
+        {submitText}
       </Button>
     </VStack>
   );
+};
+
+PostForm.propTypes = {
+  post: PropTypes.object,
+  onSubmit: PropTypes.func.isRequired,
+  submitText: PropTypes.string.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default PostForm;
