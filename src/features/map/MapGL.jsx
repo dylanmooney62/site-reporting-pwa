@@ -1,22 +1,18 @@
-/* eslint-disable no-unused-vars */
 import React, { useRef, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactMapGL from 'react-map-gl';
+import Map from 'react-map-gl';
 
-import { Box } from '@chakra-ui/react';
 import { MapViewStateUpdated, selectMapViewState } from './mapSlice';
 import { selectPosts } from '../post/postsSlice';
 
 import Marker from './Marker';
 import PostDrawer from '../post/PostDrawer/PostDrawer';
 
-// eslint-disable-next-line import/no-extraneous-dependencies
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-const MapGL = () => {
+const ReactMap = () => {
   const dispatch = useDispatch();
 
-  // eslint-disable-next-line no-unused-vars
   const viewState = useSelector(selectMapViewState);
   const posts = useSelector(selectPosts);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -36,7 +32,6 @@ const MapGL = () => {
     [posts]
   );
 
-  // eslint-disable-next-line no-unused-vars
   const markers = posts.map((post) => (
     <Marker
       key={post.id}
@@ -48,7 +43,7 @@ const MapGL = () => {
 
   return (
     <>
-      <ReactMapGL
+      <Map
         ref={mapRef}
         reuseMap
         initialViewState={viewState}
@@ -61,10 +56,11 @@ const MapGL = () => {
         mapStyle="mapbox://styles/mapbox/dark-v10"
       >
         {markers}
-      </ReactMapGL>
+      </Map>
+
       <PostDrawer post={selectedPost} />
     </>
   );
 };
 
-export default MapGL;
+export default ReactMap;
