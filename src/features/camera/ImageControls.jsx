@@ -5,7 +5,7 @@ import { FiSend } from 'react-icons/fi';
 
 const ImageControls = ({ onPost, ...props }) => (
   <Box bg="gray.900" pb="var(--sab)" {...props}>
-    <Container maxW="container.xl" display="flex" py="4">
+    <Container maxW="container.xl" display="flex" py="3">
       <Button
         variant="primary"
         px={6}

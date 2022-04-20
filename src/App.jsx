@@ -24,7 +24,6 @@ const App = () => {
   const dispatch = useDispatch();
   const locationStatus = useSelector(selectLocationStatus);
   const postStatus = useSelector(selectPostsStatus);
-
   const isNestedRoute = useIsNestedRoute();
 
   useEffect(() => {
@@ -34,7 +33,7 @@ const App = () => {
         dispatch(getPosts());
       }, 1000);
     }
-  }, [dispatch, locationStatus]);
+  }, [locationStatus]);
 
   let content;
 
@@ -43,7 +42,6 @@ const App = () => {
 
   const isLoading = locLoading || postLoading;
 
-  // Display the splash screen if the location is still loading
   if (isLoading) {
     content = <SplashScreen />;
   } else {

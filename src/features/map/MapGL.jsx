@@ -49,7 +49,8 @@ const ReactMap = () => {
         initialViewState={viewState}
         onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
         style={{
-          position: 'absolute',
+          position: 'fixed',
+          top: 0,
           height: 'calc(100vh - 64px)',
           width: '100vw',
         }}

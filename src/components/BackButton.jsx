@@ -4,7 +4,7 @@ import { IconButton, Icon } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowLeft } from 'react-icons/fi';
 
-export const BackButton = ({ to = '/', icon }) => {
+export const BackButton = ({ to, icon }) => {
   const navigate = useNavigate();
 
   return (
@@ -16,7 +16,7 @@ export const BackButton = ({ to = '/', icon }) => {
       variant="ghost"
       icon={icon || <Icon as={FiArrowLeft} w={6} h={6} />}
       aria-label="back"
-      onClick={() => navigate(to, { replace: true })}
+      onClick={() => navigate(to || -1)}
       zIndex={100000}
     />
   );

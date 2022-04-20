@@ -1,13 +1,14 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Flex, Image, useDisclosure } from '@chakra-ui/react';
-import BottomSheet from '../../components/BottomSheet';
+import { Center, Fade, Image, useDisclosure } from '@chakra-ui/react';
+
 import { addPost, resetPostsStatus, selectPostsStatus } from './postsSlice';
+import { selectLocation } from '../location/locationSlice';
+import BottomSheet from '../../components/BottomSheet';
+
 import ImageControls from '../camera/ImageControls';
 import PostForm from './PostForm';
-import { selectLocation } from '../location/locationSlice';
 
 const AddPost = () => {
   const navigate = useNavigate();
@@ -19,24 +20,33 @@ const AddPost = () => {
 
   const image = useLocation().state?.image;
 
-  const handleSubmit = ({ name, type: { value }, description }) => {
-    if (postStatus === 'adding') return;
-
-    dispatch(addPost({ name, type: value, description, image, location }));
-  };
+  useEffect(() => {
+    if (!image) {
+      navigate('/camera');
+    }
+  }, [image]);
 
   useEffect(() => {
-    if (postStatus !== 'added') return;
-    dispatch(resetPostsStatus());
-    navigate('/');
+    if (postStatus === 'added') {
+      dispatch(resetPostsStatus());
+      navigate('/');
+    }
   }, [postStatus]);
+
+  const handleSubmit = ({ name, type, description }) => {
+    if (postStatus === 'adding') return;
+
+    const post = { name, type, description, image, location };
+
+    dispatch(addPost(post));
+  };
 
   return (
     <>
-      <Flex flex={1} flexDirection="column">
-        <Image src={image} mx="auto" borderRadius="xl" my="auto" />
-        <ImageControls onPost={onOpen} />
-      </Flex>
+      <Center flex={1} position="relative" as={Fade} in mt="-64px">
+        <Image src={image} mx="auto" borderRadius="xl" pos="absolute" />
+      </Center>
+      <ImageControls onPost={onOpen} pos="absolute" bottom="0" w="full" />
       <BottomSheet isOpen={isOpen} onClose={onClose} top="calc(100vh - 30vh)">
         <PostForm
           post={null}

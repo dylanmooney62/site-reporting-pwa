@@ -1,53 +1,35 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import ReactWebcam from 'react-webcam';
-import { FiCircle } from 'react-icons/fi';
-import { chakra, Flex, Icon, IconButton } from '@chakra-ui/react';
+import { Center, chakra } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import CameraButton from './CameraButton';
 
 const Webcam = chakra(ReactWebcam);
-
-const videoConstraints = {
-  facingMode: 'environment',
-  width: { ideal: 1920 },
-  height: { ideal: 1080 },
-};
 
 const Camera = () => {
   const webcamRef = useRef(null);
   const navigate = useNavigate();
 
-  const handleCapture = React.useCallback(() => {
-    navigate('/post/new', {
-      replace: true,
-      state: { image: webcamRef.current.getScreenshot() },
-    });
+  const handleCapture = useCallback(() => {
+    const image = webcamRef.current.getScreenshot();
+    navigate('/post/new', { state: { image } });
   }, [webcamRef]);
 
   return (
-    <Flex
-      flex={1}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      pos="relative"
-      p={2}
-    >
+    <Center pos="relative" flex={1} p={2}>
       <Webcam
         ref={webcamRef}
-        videoConstraints={videoConstraints}
-        screenshotFormat="image/webp"
-        borderRadius="xl"
-        imageSmoothing={false}
+        videoConstraints={{
+          facingMode: 'environment',
+          width: { ideal: 1920 },
+          height: { ideal: 1080 },
+        }}
+        screenshotFormat="image/jpeg"
         screenshotQuality={1}
+        borderRadius="xl"
       />
-      <IconButton
-        pos="absolute"
-        bottom={16}
-        variant="ghost"
-        icon={<Icon as={FiCircle} strokeWidth={2} w={20} h={20} />}
-        onClick={handleCapture}
-      />
-    </Flex>
+      <CameraButton onCapture={handleCapture} />
+    </Center>
   );
 };
 
