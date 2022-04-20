@@ -17,7 +17,13 @@ const Camera = () => {
   }, [webcamRef]);
 
   return (
-    <Center flex={1} my="auto" display="flex" pos="relative">
+    <Center
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      pos="relative"
+      p={1}
+    >
       <Webcam
         ref={webcamRef}
         screenshotFormat="image/jpeg"
