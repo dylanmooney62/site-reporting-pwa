@@ -48,13 +48,11 @@ const App = () => {
     content = <SplashScreen />;
   } else {
     content = (
-      <RemoveScroll forwardProps>
-        <Flex flexDirection="column" flex={1}>
-          {isNestedRoute && <BackButton />}
-          <Outlet />
-          {!isNestedRoute && <BottomNavigationBar />}
-        </Flex>
-      </RemoveScroll>
+      <Flex flexDirection="column" flex={1}>
+        {isNestedRoute && <BackButton />}
+        <Outlet />
+        {!isNestedRoute && <BottomNavigationBar />}
+      </Flex>
     );
   }
 

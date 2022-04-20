@@ -1,26 +1,21 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-webpack-loader-syntax */
+/* eslint-disable no-unused-vars */
 import React, { useRef, useCallback, useState } from 'react';
-import Mapbox from 'react-map-gl';
-
 import { useDispatch, useSelector } from 'react-redux';
+import ReactMapGL from 'react-map-gl';
 
-import mapboxgl from 'mapbox-gl/dist/mapbox-gl-csp';
-import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
-
+import { Box } from '@chakra-ui/react';
 import { MapViewStateUpdated, selectMapViewState } from './mapSlice';
 import { selectPosts } from '../post/postsSlice';
+
 import Marker from './Marker';
 import PostDrawer from '../post/PostDrawer/PostDrawer';
 
 import 'mapbox-gl/dist/mapbox-gl.css';
 
-mapboxgl.workerClass = MapboxWorker;
-
 const MapGL = () => {
   const dispatch = useDispatch();
 
+  // eslint-disable-next-line no-unused-vars
   const viewState = useSelector(selectMapViewState);
   const posts = useSelector(selectPosts);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -40,6 +35,7 @@ const MapGL = () => {
     [posts]
   );
 
+  // eslint-disable-next-line no-unused-vars
   const markers = posts.map((post) => (
     <Marker
       key={post.id}
@@ -51,23 +47,17 @@ const MapGL = () => {
 
   return (
     <>
-      <Mapbox
+      <ReactMapGL
         ref={mapRef}
-        reuseMaps
+        reuseMap
         initialViewState={viewState}
         onMoveEnd={(e) => dispatch(MapViewStateUpdated(e.viewState))}
-        style={{
-          width: '100%',
-          height: 'calc(100% + env(safe-area-inset-top))',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          zIndex: 10,
-        }}
+        width="1000px"
+        height="1000px"
         mapStyle="mapbox://styles/mapbox/dark-v10"
       >
         {markers}
-      </Mapbox>
+      </ReactMapGL>
       <PostDrawer post={selectedPost} />
     </>
   );
