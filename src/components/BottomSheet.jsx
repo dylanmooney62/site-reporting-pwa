@@ -24,6 +24,6 @@ export const BottomSheet = ({ isOpen, onClose, children, ...props }) => (
 
 BottomSheet.propTypes = {
   isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  onClose: PropTypes.func,
 };

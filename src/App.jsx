@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, useLocation } from 'react-router-dom';
-import { RemoveScroll } from 'react-remove-scroll';
+import { Outlet } from 'react-router-dom';
 import { ChakraProvider, Flex } from '@chakra-ui/react';
 
 import {

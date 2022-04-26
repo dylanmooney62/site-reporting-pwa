@@ -49,13 +49,13 @@ const PostForm = ({ post, onSubmit, submitText }) => {
         controllerProps={{
           name: 'type',
           rules: { required: 'Animal type is required' },
+          defaultValue:
+            post?.type && options.find((option) => option.value === post.type),
         }}
         selectProps={{
           options,
           isSearchable: true,
           placeholder: 'Select animal type',
-          value:
-            post?.type && options.find((option) => option.value === post.type),
         }}
       />
 
@@ -90,8 +90,8 @@ PostForm.propTypes = {
   post: PropTypes.object,
   onSubmit: PropTypes.func.isRequired,
   submitText: PropTypes.string.isRequired,
-  isOpen: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool,
+  onClose: PropTypes.func,
 };
 
 export default PostForm;
